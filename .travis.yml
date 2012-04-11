@@ -5,4 +5,5 @@ node_js:
   - 0.7 # development version of 0.8, may be unstable
 before_install:
   - sudo apt-get update
-  - sudo apt-get install pkg-config libsparsehash-dev
+  - sudo apt-get install libsparsehash-dev
+  - pkg-config libsparsehash --cflags --libs
