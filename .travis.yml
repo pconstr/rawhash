@@ -6,4 +6,4 @@ node_js:
 before_install:
   - sudo apt-get update
   - sudo apt-get install libsparsehash-dev
-  - pkg-config libsparsehash --cflags --libs
+  - ls /usr/lib/pkgconfig/ /usr/local/lib/pkgconfig/
