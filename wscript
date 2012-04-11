@@ -7,7 +7,7 @@ from os.path import exists, lexists
 
 srcdir = "."
 blddir = "build"
-VERSION = "0.1.3"
+VERSION = "0.1.5"
 
 def set_options(opt):
     opt.tool_options("compiler_cxx")
@@ -24,7 +24,7 @@ def build(bld):
     obj.target = "rawhash"
 
     obj.find_sources_in_dirs("src")#see http: //www.mail-archive.com/programming@jsoftware.com/msg05886.html
-    
+
 def shutdown(): #HACK to get binding.node out of build directory.#better way to do this ?
     if Options.commands['clean']:
         if lexists('rawhash.node'):
