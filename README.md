@@ -1,6 +1,8 @@
 rawhash
 -------
 
+[![Build Status](https://secure.travis-ci.org/pconstr/rawhash.png)](http://travis-ci.org/pconstr/rawhash)
+
 An experimental binary friendly alternative to using a hash as a key:value cache, for [node.js](http://www.nodejs.org).
 
 Keys are binary [Buffer](http://nodejs.org/docs/v0.6.5/api/buffers.html) objects rather than strings. Values are arbitrary objects.
