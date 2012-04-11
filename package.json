@@ -1,8 +1,8 @@
 {
   "name": "rawhash",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "keywords": ["key:value", "buffer", "store", "in-memory", "cache"],
-  "homepage": "http://perceptiveconstructs.com",
+  "homepage": "https://github.com/pconstr/rawhash",
   "description": "experimental in-memory key:value cache where keys are binary Buffers",
   "main": "rawhash.node",
   "repository": {
