@@ -102,10 +102,10 @@ public:
   RawHash(uint32_t seed) : items(0, BufferHasher(seed)) {
     initPostConstruction(items);
   }
-  
+
   ~RawHash() {
     typename StorageT::iterator it;
-    
+
     for(it = items.begin(); it != items.end(); ++it) {
       free(it->first.data);
       it->second.Dispose();
@@ -124,14 +124,14 @@ public:
     NODE_SET_PROTOTYPE_METHOD(ct, "each", each);
     target->Set(nameSymbol, ct->GetFunction());
   }
-  
+
   static Handle<Value> New(const Arguments& args) {
     HandleScope scope;
 
     if (!args.IsConstructCall()) {
       return ThrowException(Exception::TypeError(String::New("Use the new operator to create instances of this object.")));
     }
-  
+
     RawHash* bh = new RawHash();
     bh->Wrap(args.This());
     return args.This();
@@ -148,7 +148,7 @@ public:
     if(args.Length() >= 1) {
       Local<Integer> s = *args[0]->ToInteger();
       if(s.IsEmpty())
-	return Exception::Error(String::New("argument 1 must be a integer"));
+        return ThrowException(Exception::Error(String::New("argument 1 must be a integer")));
       seed = s->Value();
     }
     RawHash* bh = new RawHash(seed);
@@ -160,17 +160,17 @@ public:
     HandleScope scope;
 
     if(args.Length() != 1) {
-      return Exception::Error(String::New("get takes 1 argument"));
+      return ThrowException(Exception::Error(String::New("get takes 1 argument")));
     }
 
     if(!Buffer::HasInstance(args[0]))
-      return Exception::Error(String::New("argument 1 must be a Buffer"));
+      return ThrowException(Exception::Error(String::New("argument 1 must be a Buffer")));
 
-    RawHash* bh = ObjectWrap::Unwrap<RawHash>(args.This());    
+    RawHash* bh = ObjectWrap::Unwrap<RawHash>(args.This());
     typename StorageT::iterator it = bh->access(args[0]);
     if(it == bh->items.end())
       return Undefined();
-    
+
     return scope.Close(it->second);
   }
 
@@ -178,11 +178,11 @@ public:
     HandleScope scope;
 
     if(args.Length() != 2) {
-      return Exception::Error(String::New("set takes 2 arguments"));
+      return ThrowException(Exception::Error(String::New("set takes 2 arguments")));
     }
 
     if(!Buffer::HasInstance(args[0]))
-      return Exception::Error(String::New("argument 1 must be a Buffer"));
+      return ThrowException(Exception::Error(String::New("argument 1 must be a Buffer")));
 
     RawHash* bh = ObjectWrap::Unwrap<RawHash>(args.This());
 
@@ -208,11 +208,11 @@ public:
     HandleScope scope;
 
     if(args.Length() != 1) {
-      return Exception::Error(String::New("get takes 1 argument"));
+      return ThrowException(Exception::Error(String::New("get takes 1 argument")));
     }
 
     if(!Buffer::HasInstance(args[0]))
-      return Exception::Error(String::New("argument 1 must be a Buffer"));
+      return ThrowException(Exception::Error(String::New("argument 1 must be a Buffer")));
 
     RawHash* bh = ObjectWrap::Unwrap<RawHash>(args.This());
     typename StorageT::iterator it = bh->access(args[0]);
@@ -228,7 +228,7 @@ public:
 
   static Handle<Value> each(const Arguments& args) {
     if(args.Length() != 1) {
-      return Exception::Error(String::New("each takes 1 argument"));
+      return ThrowException(Exception::Error(String::New("each takes 1 argument")));
     }
     if (!args[0]->IsFunction()) {
       return ThrowException(Exception::TypeError(String::New("argument must be a callback function")));
@@ -244,9 +244,6 @@ public:
     RawHash* bh = ObjectWrap::Unwrap<RawHash>(args.This());
     typename StorageT::iterator it;
 
-    Local<Object> globalObj = Context::GetCurrent()->Global();
-    Local<Function> bufferConstructor = Local<Function>::Cast(globalObj->Get(String::New("Buffer")));
- 
     for(it = bh->items.begin(); it != bh->items.end(); ++it) {
       const RawHashKey& k = it->first;
       Buffer* b = Buffer::New(k.len);
@@ -257,7 +254,7 @@ public:
       TryCatch tc;
       Local<Value> ret = callback->Call(Context::GetCurrent()->Global(), argc, argv);
       if(ret.IsEmpty() || ret->IsFalse())
-	break;
+        break;
     }
 
     return Undefined();
