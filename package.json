@@ -1,6 +1,6 @@
 {
   "name": "rawhash",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "keywords": ["key:value", "buffer", "store", "in-memory", "cache"],
   "homepage": "https://github.com/pconstr/rawhash",
   "description": "experimental in-memory key:value cache where keys are binary Buffers",
