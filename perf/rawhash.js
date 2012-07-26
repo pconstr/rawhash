@@ -4,7 +4,7 @@
  * Licensed under the MIT license */
 
 var assert = require('assert');
-var rh = require("../rawhash");
+var rh = require("../index.js");
 
 function doTests(h) {
     var timeStart = Date.now();
@@ -14,7 +14,7 @@ function doTests(h) {
     var b = new Buffer(18);
     for(i = 0; i < 18; ++i)
 	b[i] = i;
-    
+
     var i0, i1, i2, i3;
     for(i = 0; i < numItems; ++i) {
 	i0 = i & 127;
@@ -28,7 +28,7 @@ function doTests(h) {
 	h.set(b, {a: i0, b: i1, c: i2});
     }
     h.set(b, {a: i0, b: i1, c: i2}); // reset value
-    
+
     var v;
     for(i = 0; i < numItems; ++i) {
 	i0 = i & 127;
@@ -44,7 +44,7 @@ function doTests(h) {
 	assert.equal(v.b, i1);
 	assert.equal(v.c, i2);
     }
-        
+
     for(i = 0; i < numItems; ++i) {
 	i0 = i & 127;
 	i1 = (i >>  7) & 127;
