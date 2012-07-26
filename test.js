@@ -6,7 +6,7 @@
 'use strict';
 
 var assert = require('assert');
-var rh = require("./rawhash");
+var rh = require("./index.js");
 
 function doTests(h) {
   var timeStart = Date.now();
